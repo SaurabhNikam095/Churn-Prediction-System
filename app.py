@@ -6,9 +6,7 @@ import shap
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 
-# =========================================================
 # Page config
-# =========================================================
 st.set_page_config(
     page_title="Telcom | Advanced Churn Analytics",
     page_icon="💠",
@@ -16,9 +14,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# =========================================================
 # CSS (Upgraded Premium UI)
-# =========================================================
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
@@ -228,9 +224,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# =========================================================
 # Load models
-# =========================================================
 @st.cache_resource(show_spinner="Initializing AI Engine...")
 def load_models():
     model = joblib.load("models/best_model.pkl")
@@ -247,9 +241,7 @@ except Exception:
     st.error("⚠️ Model artifacts not found. Please ensure `models/` contains required .pkl files.")
     st.stop()
 
-# =========================================================
 # Helpers
-# =========================================================
 def preprocess_input(input_data, raw_columns, fitted_scaler):
     df_processed = input_data.copy()
 
@@ -343,9 +335,7 @@ def build_input_df_from_session():
     }
     return pd.DataFrame(input_data, index=[0])
 
-# =========================================================
 # Session defaults
-# =========================================================
 DEFAULTS = {
     'gender': 'Male',
     'senior': 'No',
@@ -396,9 +386,7 @@ for k, v in DEFAULTS.items():
 if "last_result" not in st.session_state:
     st.session_state["last_result"] = None
 
-# =========================================================
 # Sidebar (Telecom Data) - aligned buttons
-# =========================================================
 st.sidebar.markdown('<div class="sidebar-card">', unsafe_allow_html=True)
 st.sidebar.markdown("## 📡 Telecom Data")
 st.sidebar.markdown('<p class="muted">Quick actions</p>', unsafe_allow_html=True)
@@ -420,13 +408,8 @@ with csb:
 
 st.sidebar.markdown("</div>", unsafe_allow_html=True)
 
-# =========================================================
 # Main header
-# =========================================================
-
-# =========================================================
 # 1) INPUT DATA SECTION (FIRST)
-# =========================================================
 st.markdown('<div class="card">', unsafe_allow_html=True)
 st.markdown("### 🧾 Input Data")
 st.markdown('<p class="muted">Fill customer details below, then click <b>Input Data</b> to run the prediction model.</p>', unsafe_allow_html=True)
@@ -478,9 +461,7 @@ with st.form("main_input_form", clear_on_submit=False):
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-# =========================================================
 # 2) MODEL EXECUTION + RESULTS (same page)
-# =========================================================
 if run_now:
     input_df = build_input_df_from_session()
 
@@ -504,9 +485,7 @@ if run_now:
         result_row["risk"] = "High" if prediction_proba >= 0.70 else ("Medium" if prediction_proba >= 0.40 else "Low")
         st.session_state["last_result"] = result_row
 
-# =========================================================
 # 3) SHOW RESULTS IF AVAILABLE
-# =========================================================
 if st.session_state["last_result"] is not None:
     last = st.session_state["last_result"]
     prob = float(last["churn_probability"].iloc[0])
