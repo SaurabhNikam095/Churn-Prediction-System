@@ -53,13 +53,7 @@ churn_prediction_system/
 
 ## 🚀 Setup & Installation
 
-**1. Clone the repository**
-```bash
-git clone https://github.com/your-username/nexus-churn-predictor.git
-cd nexus-churn-predictor
-```
-
-**2. Set up a virtual environment**
+**1. Set up a virtual environment**
 - **Windows:**
   ```powershell
   python -m venv venv
@@ -71,12 +65,12 @@ cd nexus-churn-predictor
   source venv/bin/activate
   ```
 
-**3. Install dependencies**
+**2. Install dependencies**
 ```bash
 pip install -r requirements.txt
 ```
 
-**4. Generate data & train models**
+**3. Generate data & train models**
 If you are starting entirely from scratch, you can run the pipeline sequentially to generate synthetic data and serialize newly trained AI models into the `models/` folder:
 ```bash
 python generate_data.py
